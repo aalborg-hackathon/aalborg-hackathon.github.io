@@ -29,7 +29,7 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
     <meta name="generator" content={Astro.generator} />
     <title>Aalborg Hackathon</title>
   </head>
-  <body class="bg-gray-100 min-h-screen">
+  <body class="bg-gray-100 h-screen">
     <header
       class="bg-blue-800 p-8 text-white flex flex-row flex-wrap justify-between gap-4"
     >
@@ -48,7 +48,7 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
         >
       </div>
     </header>
-    <main class="bg-red-50">
+    <main class="h-full">
       <section class="p-4 md:p-8">
         <h3 class="text-xl mb-2">We put the "Hygge" in "Hackathon"</h3>
         <div>
@@ -64,7 +64,7 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
         <IconBox time="13:00" iconName="mdi:computer">Hack hack hack</IconBox>
         <IconBox time="18:00" iconName="mdi:food">Dinner</IconBox>
         <IconBox time="19:00" iconName="mdi:computer">Hack hack hack</IconBox>
-        <IconBox time="20:00" iconName="mdi:hand-wave">Good bye!</IconBox>
+        <IconBox time="21:00" iconName="mdi:hand-wave">Good bye!</IconBox>
       </section>
       {
         nextEvent && (
@@ -74,17 +74,18 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
           </section>
         )
       }
+      <section class="p-4 md:p-8">
+        <h3 class="text-xl mb-2">Past Events</h3>
+        {pastEvents.map((event) => <EventCard event={event} />)}
+      </section>
     </main>
-
-    <section class="p-4 md:p-8">
-      <h3 class="text-xl mb-2">Past Events</h3>
-      {pastEvents.map((event) => <EventCard event={event} />)}
-    </section>
+    <footer
+      class="bg-blue-700 text-white flex flex-row justify-between gap-4 p-8"
+    >
+      <div>Sponsored by Subaio A/S</div>
+      <a href={linkedInLink} target="_blank" rel="nofollow noreferer"
+        >LinkedIn Group</a
+      >
+    </footer>
   </body>
 </html>
-<footer class="bg-blue-700 text-white flex flex-row justify-between gap-4 p-8">
-  <div>Sponsored by Subaio A/S</div>
-  <a href={linkedInLink} target="_blank" rel="nofollow noreferer"
-    >LinkedIn Group</a
-  >
-</footer>
