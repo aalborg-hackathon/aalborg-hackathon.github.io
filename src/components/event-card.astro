@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { startOfDay } from "date-fns";
+interface Props {
+  event: CollectionEntry<"events">;
+}
+const { event } = Astro.props;
+const isPast = event.data.date.getTime() < startOfDay(new Date()).getTime();
+---
+
+<div class="shadow-md rounded-md bg-white border p-4 md:max-w-lg">
+  <div class="text-gray-500">
+    {event.data.date.toLocaleDateString("da")}
+  </div>
+  <div class="text-lg font-semibold">{event.data.title}</div>
+  {!isPast && <div class="mt-2">{event.body}</div>}
+  {
+    !isPast && (
+      <div class="text-right">
+        <a
+          href={event.data.signupURL}
+          target="_blank"
+          rel="noreferer noopener"
+          class="inline-flex bg-green-600 hover:bg-green-500 cursor-pointer p-4 rounded-md shadow-md text-white font-semibold"
+        >
+          Join
+        </a>
+      </div>
+    )
+  }
+</div>

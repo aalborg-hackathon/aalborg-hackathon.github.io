@@ -1,0 +1,16 @@
+---
+import Icon from "astro-icon";
+interface Props {
+  iconName: Parameters<typeof Icon>[0]["name"];
+  time: string;
+}
+const { iconName, time } = Astro.props;
+---
+
+<div
+  class="p-4 bg-white justify-center flex flex-col text-center rounded-md shadow-md aspect-square"
+>
+  <Icon name={iconName} class="h-14 w-14 self-center mb-2" />
+  <slot />
+  <div class="text-gray-500">{time}</div>
+</div>

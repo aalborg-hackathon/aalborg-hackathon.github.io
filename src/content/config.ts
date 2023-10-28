@@ -6,12 +6,12 @@ const eventCollection = defineCollection({
     schema: z.object({
         title: z.string(),
         location: z.string(),
-        from: z.date(),
-        to: z.date(),
+        date: z.date(),
         host: z.object({
             name: z.string(),
             url: z.string().url()
-        })
+        }),
+        signupURL: z.string().url()
     })
 
 });

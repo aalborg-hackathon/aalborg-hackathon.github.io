@@ -1,13 +1,24 @@
 ---
 import { getCollection } from "astro:content";
-import {} from "date-fns";
-const allEvents = (await getCollection("events")).sort(
-  (a, b) => b.data.from.getTime() - a.data.from.getTime()
-);
-const pastEvents = allEvents.filter(
-  (event) => new Date().getTime() < event.data.from.getTime()
-);
-const nextEvent = allEvents[0];
+import EventCard from "../components/event-card.astro";
+import { startOfDay } from "date-fns";
+import Icon from "astro-icon";
+import IconBox from "../components/icon-box.astro";
+const allEvents = await getCollection("events");
+const pastEvents = allEvents
+  .filter(
+    (event) => event.data.date.getTime() < startOfDay(new Date()).getTime()
+  )
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const futureEvents = allEvents
+  .filter(
+    (event) => event.data.date.getTime() > startOfDay(new Date()).getTime()
+  )
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const nextEvent = (futureEvents.length > 0 && futureEvents[0]) || undefined;
+const linkedInLink = "https://www.linkedin.com/groups/7453429/";
+const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
 ---
 
 <html lang="en">
@@ -19,42 +30,61 @@ const nextEvent = allEvents[0];
     <title>Aalborg Hackathon</title>
   </head>
   <body class="bg-gray-100 min-h-screen">
-    <header class="bg-blue-800 p-8 text-white flex flex-row justify-between">
+    <header
+      class="bg-blue-800 p-8 text-white flex flex-row flex-wrap justify-between gap-4"
+    >
       <h1 class="text-4xl font-bold">Aalborg Hackathon</h1>
-      <div class="flex gap-4">
+      <div class="flex gap-4 min-w-[100px]">
         <a
           class="bg-gray-400 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
           >Host a Hackathon</a
         >
         <a
+          target="_blank"
+          rel="noopener noreferer"
+          href={joinOurNextHackathonLink}
           class="bg-green-700 text-white rounded-md p-4 hover:bg-green-600 hover:text-underline shadow-lg font-bold cursor-pointer"
           >Join our next Hackathon</a
         >
       </div>
     </header>
-    <main class="min-h-screen bg-red-50">
+    <main class="bg-red-50">
       <section class="p-4 md:p-8">
         <h3 class="text-xl mb-2">We put the "Hygge" in "Hackathon"</h3>
-         Meet great people, work on personal projects, collaborate and have fun.
-      </section>
-      <section class="p-4 md:p-8">
-        <h3 class="text-xl mb-2">Next Event</h3>
-        <div class="shadow-md rounded-md bg-white border p-4">
-          {nextEvent.data.title}
+        <div>
+          Meet great people, work on personal projects, collaborate and have
+          fun.
         </div>
       </section>
-
-      <section class="p-4 md:p-8">
-        <h3 class="text-xl mb-2">Past Events</h3>
+      <section id="how-it-works" class="flex flex-row gap-4 p-4 md:p-8">
+        <IconBox time="09:00" iconName="mdi:coffee">Breakfast</IconBox>
+        <IconBox time="09:30" iconName="mdi:people">Introductions</IconBox>
+        <IconBox time="10:00" iconName="mdi:computer">Hack hack hack</IconBox>
+        <IconBox time="12:00" iconName="mdi:food">Lunch</IconBox>
+        <IconBox time="13:00" iconName="mdi:computer">Hack hack hack</IconBox>
+        <IconBox time="18:00" iconName="mdi:food">Dinner</IconBox>
+        <IconBox time="19:00" iconName="mdi:computer">Hack hack hack</IconBox>
+        <IconBox time="20:00" iconName="mdi:hand-wave">Good bye!</IconBox>
       </section>
+      {
+        nextEvent && (
+          <section class="p-4 md:p-8 flex gap-2 flex-col">
+            <h3 class="text-xl mb-2">Next Event</h3>
+            <EventCard event={nextEvent} />
+          </section>
+        )
+      }
     </main>
+
+    <section class="p-4 md:p-8">
+      <h3 class="text-xl mb-2">Past Events</h3>
+      {pastEvents.map((event) => <EventCard event={event} />)}
+    </section>
   </body>
-  <footer class="flex flex-row justify-between gap-4 p-8">
-    <div>Sponsored by Subaio A/S</div>
-    <a
-      href="https://www.linkedin.com/groups/7453429/"
-      target="_blank"
-      rel="nofollow noreferer">LinkedIn Group</a
-    >
-  </footer>
 </html>
+<footer class="flex flex-row justify-between gap-4 p-8">
+  <div>Sponsored by Subaio A/S</div>
+  <a href={linkedInLink} target="_blank" rel="nofollow noreferer"
+    >LinkedIn Group</a
+  >
+</footer>
