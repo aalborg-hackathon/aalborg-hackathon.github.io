@@ -1,6 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { startOfDay } from "date-fns";
+import { useTranslations, getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface Props {
   event: CollectionEntry<"events">;
 }
@@ -23,7 +28,7 @@ const isPast = event.data.date.getTime() < startOfDay(new Date()).getTime();
           rel="noreferer noopener"
           class="inline-flex bg-green-600 hover:bg-green-500 cursor-pointer p-4 rounded-md shadow-md text-white font-semibold"
         >
-          Join
+          {t("nav.join_short")}
         </a>
       </div>
     )

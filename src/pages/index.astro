@@ -4,6 +4,11 @@ import EventCard from "../components/event-card.astro";
 import { startOfDay } from "date-fns";
 import IconBox from "../components/icon-box.astro";
 import Header from "../components/header.astro";
+import { useTranslations, getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const allEvents = await getCollection("events");
 const pastEvents = allEvents
   .filter(
@@ -40,14 +45,14 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
     <Header>
       <a
         class="bg-gray-200 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
-        href="/host">Host a Hackathon</a
+        href="/host">{t("nav.host")}</a
       >
       <a
         target="_blank"
         rel="noopener noreferer"
         href={joinOurNextHackathonLink}
         class="bg-green-700 text-white rounded-md p-4 hover:bg-green-600 hover:text-underline shadow-lg font-bold cursor-pointer"
-        >Join our next Hackathon</a
+        >{t("nav.join_long")}</a
       >
     </Header>
     <main class="min-h-full">
