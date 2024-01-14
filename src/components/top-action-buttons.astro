@@ -1,14 +1,17 @@
 ---
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import { useEvents } from "../lib/events";
 
 const { joinOurNextHackathonLink } = await useEvents();
-const t = useTranslations(getLangFromUrl(Astro.url));
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const hostLink = getRelativeLocaleUrl(lang, "/host");
 ---
 
 <a
   class="bg-gray-200 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
-  href="/host">{t("nav.host")}</a
+  href={hostLink}>{t("nav.host")}</a
 >
 <a
   target="_blank"
