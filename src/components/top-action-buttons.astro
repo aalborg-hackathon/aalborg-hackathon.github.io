@@ -1,0 +1,19 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { useEvents } from "../lib/events";
+
+const { joinOurNextHackathonLink } = await useEvents();
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<a
+  class="bg-gray-200 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
+  href="/host">{t("nav.host")}</a
+>
+<a
+  target="_blank"
+  rel="noopener noreferer"
+  href={joinOurNextHackathonLink}
+  class="bg-green-700 text-white rounded-md p-4 hover:bg-green-600 hover:text-underline shadow-lg font-bold cursor-pointer"
+  >{t("nav.join_long")}</a
+>

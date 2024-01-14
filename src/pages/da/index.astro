@@ -1,0 +1,34 @@
+---
+import EventCard from "../../components/event-card.astro";
+import Header from "../../components/header.astro";
+import { useTranslations, getLangFromUrl } from "../../i18n/utils";
+import { siteName } from "../../constants";
+import { useEvents } from "../../lib/events";
+import ActivityBoxes from "../../components/activity-boxes.astro";
+import PageLayout from "../../components/page-layout.astro";
+import NextEvent from "../../components/next-event.astro";
+import PastEvents from "../../components/past-events.astro";
+import TopActionButtons from "../../components/top-action-buttons.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { joinOurNextHackathonLink, nextEvent, pastEvents } = await useEvents();
+---
+
+<PageLayout lang={lang}>
+  <Header>
+    <TopActionButtons />
+  </Header>
+  <main class="min-h-full">
+    <section class="p-4 md:p-8">
+      <h3 class="text-xl mb-2">Det hyggelige Hackathon!</h3>
+      <div>
+        Mød fantastiske mennesker, arbejd på dine projekter eller sammen med
+        andre.
+      </div>
+    </section>
+    <ActivityBoxes />
+    <NextEvent title="Næste arrangement" />
+    <PastEvents title="Tidligere" />
+  </main>
+</PageLayout>

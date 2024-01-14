@@ -1,12 +1,17 @@
 ---
+import { linkedinGroupURL } from "../constants";
+import { defaultLang } from "../i18n/ui";
+import LanguagePicker from "./language-picker.astro";
+
 type Props = {
   title?: string;
+  lang?: string;
 };
 
-const { title = "Aalborg Hackathon" } = Astro.props;
+const { title = "Aalborg Hackathon", lang = defaultLang } = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -22,4 +27,13 @@ const { title = "Aalborg Hackathon" } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-gray-100 h-screen"><slot /></body>
+  <footer
+    class="bg-blue-700 text-white flex flex-row justify-between gap-4 p-8"
+  >
+    <div>Sponsored by Subaio A/S</div>
+    <a href={linkedinGroupURL} target="_blank" rel="nofollow noreferer"
+      >LinkedIn Group</a
+    >
+    <LanguagePicker />
+  </footer>
 </html>

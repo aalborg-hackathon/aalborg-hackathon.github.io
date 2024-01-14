@@ -1,5 +1,5 @@
 ---
-import Icon from "astro-icon";
+import { Icon } from "astro-icon/components";
 interface Props {
   iconName: Parameters<typeof Icon>[0]["name"];
   time: string;
@@ -8,7 +8,7 @@ const { iconName, time } = Astro.props;
 ---
 
 <div
-  class="py-2 px-2 w-[80px] md:w-[150px] text-sm md:text-base bg-white justify-center flex flex-col text-center rounded-md shadow-md aspect-square"
+  class="py-2 px-2 w-[100px] md:w-[150px] text-sm md:text-base bg-white justify-center flex flex-col text-center rounded-md shadow-md aspect-square"
 >
   <Icon name={iconName} class="h-4 w-4 md:h-14 md:w-14 self-center mb-2" />
   <slot />

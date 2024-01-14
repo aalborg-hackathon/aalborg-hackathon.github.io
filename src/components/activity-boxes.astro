@@ -1,0 +1,22 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import IconBox from "./icon-box.astro";
+const t = useTranslations(getLangFromUrl(Astro.url));
+---
+
+<section class="flex flex-row flex-wrap gap-4 p-4 md:p-8">
+  <IconBox time="09:00" iconName="mdi:coffee">
+    {t("activity.breakfast")}
+  </IconBox>
+  <IconBox time="09:30" iconName="mdi:people">
+    {t("activity.introductions")}
+  </IconBox>
+  <IconBox time="10:00" iconName="mdi:computer">{t("activity.hack")}</IconBox>
+  <IconBox time="12:30" iconName="mdi:food">{t("activity.lunch")}</IconBox>
+  <IconBox time="13:00" iconName="mdi:computer">{t("activity.hack")}</IconBox>
+  <IconBox time="18:00" iconName="mdi:food">{t("activity.dinner")}</IconBox>
+  <IconBox time="19:00" iconName="mdi:computer">{t("activity.hack")}</IconBox>
+  <IconBox time="21:00" iconName="mdi:hand-wave">
+    {t("activity.goodbye")}
+  </IconBox>
+</section>
