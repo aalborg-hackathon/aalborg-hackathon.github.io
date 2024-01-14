@@ -4,6 +4,7 @@ import EventCard from "../components/event-card.astro";
 import { startOfDay } from "date-fns";
 import Icon from "astro-icon";
 import IconBox from "../components/icon-box.astro";
+import Header from "../components/header.astro";
 const allEvents = await getCollection("events");
 const pastEvents = allEvents
   .filter(
@@ -37,25 +38,20 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
     <title>Aalborg Hackathon</title>
   </head>
   <body class="bg-gray-100 h-screen">
-    <header
-      class="bg-blue-800 p-8 text-white flex flex-row flex-wrap justify-between gap-4"
-    >
-      <h1 class="text-4xl font-bold">Aalborg Hackathon</h1>
-      <div class="flex gap-4 min-w-[100px]">
-        <a
-          class="bg-gray-400 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
-          >Host a Hackathon</a
-        >
-        <a
-          target="_blank"
-          rel="noopener noreferer"
-          href={joinOurNextHackathonLink}
-          class="bg-green-700 text-white rounded-md p-4 hover:bg-green-600 hover:text-underline shadow-lg font-bold cursor-pointer"
-          >Join our next Hackathon</a
-        >
-      </div>
-    </header>
-    <main class="h-full">
+    <Header>
+      <a
+        class="bg-gray-200 text-gray-800 rounded-md p-4 hover:bg-gray-300 hover:text-underline shadow-lg font-bold cursor-pointer"
+        href="/host">Host a Hackathon</a
+      >
+      <a
+        target="_blank"
+        rel="noopener noreferer"
+        href={joinOurNextHackathonLink}
+        class="bg-green-700 text-white rounded-md p-4 hover:bg-green-600 hover:text-underline shadow-lg font-bold cursor-pointer"
+        >Join our next Hackathon</a
+      >
+    </Header>
+    <main class="min-h-full">
       <section class="p-4 md:p-8">
         <h3 class="text-xl mb-2">We put the "Hygge" in "Hackathon"</h3>
         <div>
@@ -63,7 +59,10 @@ const joinOurNextHackathonLink = nextEvent?.data.signupURL ?? linkedInLink;
           fun.
         </div>
       </section>
-      <section id="how-it-works" class="flex flex-row gap-4 p-4 md:p-8">
+      <section
+        id="how-it-works"
+        class="flex flex-row flex-wrap gap-4 p-4 md:p-8"
+      >
         <IconBox time="09:00" iconName="mdi:coffee">Breakfast</IconBox>
         <IconBox time="09:30" iconName="mdi:people">Introductions</IconBox>
         <IconBox time="10:00" iconName="mdi:computer">Hack hack hack</IconBox>

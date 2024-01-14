@@ -1,0 +1,19 @@
+---
+import PageLayout from "../components/page-layout.astro";
+import Header from "../components/header.astro";
+import type { MarkdownLayoutProps } from "astro";
+const { frontmatter } = Astro.props;
+type Props = MarkdownLayoutProps<{
+  title: string;
+}>;
+---
+
+<PageLayout>
+  <Header />
+  <main class="p-4 bg-white min-h-full md:mx-8">
+    <h1 class="text-4xl font-semibold mb-4">{frontmatter.title}</h1>
+    <article class="prose lg:prose-lg">
+      <slot />
+    </article>
+  </main>
+</PageLayout>
