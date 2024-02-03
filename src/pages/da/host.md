@@ -1,5 +1,5 @@
 ---
-layout: "../layouts/md-layout.astro"
+layout: "../../layouts/md-layout.astro"
 title: "Host a Hackathon"
 ---
 

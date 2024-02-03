@@ -1,0 +1,19 @@
+---
+import { useEvents } from "../lib/events";
+import EventCard from "./event-card.astro";
+
+const { nextEvent } = await useEvents();
+type Props = {
+  title: string;
+};
+const { title } = Astro.props;
+---
+
+{
+  nextEvent && (
+    <section class="p-4 md:p-8 flex gap-2 flex-col">
+      <h3 class="text-xl mb-2">{title}</h3>
+      <EventCard event={nextEvent} />
+    </section>
+  )
+}
