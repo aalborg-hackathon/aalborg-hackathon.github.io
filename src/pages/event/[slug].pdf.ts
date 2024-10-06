@@ -3,9 +3,13 @@ import { getEntry } from "astro:content";
 import { getCollection, getEntryBySlug } from "astro:content";
 import { createElement } from "react";
 import { EventPoster } from "./event-poster";
+import type { APIRoute } from "astro";
 
-export async function GET({ params }) {
+export const GET: APIRoute = async ({ params }) => {
   const slug = params.slug;
+  if (!slug) {
+    return new Response(null, { status: 400 });
+  }
   const ev = await getEntry("events", slug);
 
   if (!ev) {
@@ -22,7 +26,7 @@ export async function GET({ params }) {
       "Content-Type": "application/pdf",
     },
   });
-}
+};
 
 export async function getStaticPaths() {
   const events = await getCollection("events");
