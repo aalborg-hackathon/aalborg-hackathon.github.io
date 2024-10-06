@@ -1,0 +1,13 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { getEntries } from "astro:content";
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  return events.map(e => ({
+    params: { slug: e.slug, }
+  }))
+}
+---
+
+hello

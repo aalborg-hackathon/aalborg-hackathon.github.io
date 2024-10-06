@@ -1,4 +1,5 @@
 ---
+import Icon from "astro-icon";
 import type { CollectionEntry } from "astro:content";
 import { startOfDay } from "date-fns";
 interface Props {
@@ -25,6 +26,7 @@ const isPast = event.data.date.getTime() < startOfDay(new Date()).getTime();
         >
           Join
         </a>
+        <a href={`/event/${event.slug}.pdf`}><Icon name="mdi:file-pdf-box" class="h-[2rem] w-[2rem]" /></a>
       </div>
     )
   }
